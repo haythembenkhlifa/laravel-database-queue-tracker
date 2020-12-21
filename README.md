@@ -7,8 +7,7 @@
 Package description: this package allows you to track your database queued jobs
 
 
-Supported laravel versions : [![Laravel7](https://badge.fury.io/js/survey-monkey-streams.svg)](//npmjs.com/package/survey-monkey-streams)
-[![Laravel8](https://badge.fury.io/js/survey-monkey-streams.svg)](//npmjs.com/package/survey-monkey-streams)
+Supported laravel versions : 7/8
 
 
 
