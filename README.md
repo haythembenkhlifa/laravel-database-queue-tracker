@@ -1,8 +1,5 @@
 # Laravel Database Queue Tracker
 
-[![GitHub Workflow Status](https://github.com/haythem/laravel-database-queue-tracker/workflows/Run%20tests/badge.svg)](https://github.com/haythem/laravel-database-queue-tracker/actions)
-[![styleci](https://styleci.io/repos/CHANGEME/shield)](https://styleci.io/repos/CHANGEME)
-
 [![Packagist](https://img.shields.io/packagist/v/haythem/laravel-database-queue-tracker.svg)](https://packagist.org/packages/haythem/laravel-database-queue-tracker)
 [![Packagist](https://poser.pugx.org/haythem/laravel-database-queue-tracker/d/total.svg)](https://packagist.org/packages/haythem/laravel-database-queue-tracker)
 [![Packagist](https://img.shields.io/packagist/l/haythem/laravel-database-queue-tracker.svg)](https://packagist.org/packages/haythem/laravel-database-queue-tracker)
