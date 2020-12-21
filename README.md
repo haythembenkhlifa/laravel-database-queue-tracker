@@ -41,8 +41,3 @@ Route::get('/queue-tracker', function () {
 });
 ```
 
-
-## Credits
-
-- [](https://github.com/haythem/laravel-database-queue-tracker)
-- [All contributors](https://github.com/haythem/laravel-database-queue-tracker/graphs/contributors)
