@@ -1,7 +1,6 @@
 # Laravel Database Queue Tracker
 
 [![Packagist](https://img.shields.io/packagist/v/haythem/laravel-database-queue-tracker.svg)](https://packagist.org/packages/haythem/laravel-database-queue-tracker)
-[![Packagist](https://poser.pugx.org/haythem/laravel-database-queue-tracker/d/total.svg)](https://packagist.org/packages/haythem/laravel-database-queue-tracker)
 [![Packagist](https://img.shields.io/packagist/l/haythem/laravel-database-queue-tracker.svg)](https://packagist.org/packages/haythem/laravel-database-queue-tracker)
 
 Package description: this package allows you to track your database queued jobs
