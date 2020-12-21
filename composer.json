@@ -1,0 +1,52 @@
+{
+  "name": "haythem/laravel-database-queue-tracker",
+  "description": "A laravel database queue tracker",
+  "license": "MIT",
+  "keywords": [
+    "laravel",
+    "database",
+    "queue",
+    "tracker"
+  ],
+  "type": "library",
+  "authors": [
+    {
+      "name": "Haythem",
+      "email": "benkhlifahaythem@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.2",
+    "illuminate/support": "^6.0|^7.0|^8.0",
+    "livewire/livewire": "^2.0"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^4.0|^5.0|^6.0",
+    "phpunit/phpunit": "^8.4|^9.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "haythem\\LaravelDatabaseQueueTracker\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "haythem\\LaravelDatabaseQueueTracker\\Tests\\": "tests"
+    }
+  },
+  "scripts": {
+    "phpunit": "phpunit"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "haythem\\LaravelDatabaseQueueTracker\\ServiceProvider"
+      ]
+    }
+  },
+  "config": {
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "optimize-autoloader": true
+  }
+}
