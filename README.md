@@ -5,7 +5,7 @@
 [![Packagist](https://img.shields.io/packagist/l/haythem/laravel-database-queue-tracker.svg)](https://packagist.org/packages/haythem/laravel-database-queue-tracker)
 
 Package description: this package allows you to track your database queued jobs
-
+Supported laravel versions : 7/8
 ![alt text](https://github.com/haythembenkhlifa/laravel-database-queue-tracker/blob/master/src/img/animation.gif)
 
 ## Installation
@@ -13,6 +13,11 @@ Package description: this package allows you to track your database queued jobs
 Install via composer
 ```bash
 composer require haythem/laravel-database-queue-tracker
+```
+
+Migrate
+```bash
+php artisan migrate
 ```
 
 ### Publish package assets
