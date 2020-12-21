@@ -7,7 +7,9 @@
 [![Packagist](https://poser.pugx.org/haythem/laravel-database-queue-tracker/d/total.svg)](https://packagist.org/packages/haythem/laravel-database-queue-tracker)
 [![Packagist](https://img.shields.io/packagist/l/haythem/laravel-database-queue-tracker.svg)](https://packagist.org/packages/haythem/laravel-database-queue-tracker)
 
-Package description: CHANGE ME
+Package description: this package allows you to track your database queued jobs
+
+![alt text](https://github.com/haythembenkhlifa/laravel-database-queue-tracker/blob/master/src/img/animation.gif)
 
 ## Installation
 
@@ -24,17 +26,23 @@ php artisan vendor:publish --provider="haythem\LaravelDatabaseQueueTracker\Servi
 
 ## Usage
 
-CHANGE ME
+1 - add IsTracked Trait to your job you want to track
+```php
+    use haythem\LaravelDatabaseQueueTracker\Traits\IsTracked;
 
-## Security
+    use IsTracked;
+```
 
-If you discover any security related issues, please email 
-instead of using the issue tracker.
+2 - add the this route to the web.php
+
+```php
+Route::get('/queue-tracker', function () {
+    return view('queue-tracker::queue-tracker');
+});
+```
+
 
 ## Credits
 
 - [](https://github.com/haythem/laravel-database-queue-tracker)
 - [All contributors](https://github.com/haythem/laravel-database-queue-tracker/graphs/contributors)
-
-This package is bootstrapped with the help of
-[melihovv/laravel-package-generator](https://github.com/melihovv/laravel-package-generator).
