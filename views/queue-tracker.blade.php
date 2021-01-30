@@ -25,7 +25,7 @@
 </head>
 <body>
 
-    <div class="container" >
+    <div class="m-3" >
         @livewire('queue-tracker')
     </div>
     @livewireScripts()
