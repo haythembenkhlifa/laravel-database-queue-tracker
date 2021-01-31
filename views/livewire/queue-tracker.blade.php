@@ -1,11 +1,12 @@
 <div x-data="{ open: false}">
-    <div class="mt-5" wire:poll.500ms>
+    {{-- <div class="mt-5" wire:poll.500ms> --}}
+        <div class="mt-5">
             <div class="d-flex justify-content-center mb-5">
                 <h1>Database Queue Tracker</h1>
             </div>
-            <div class="d-sm-inline-flex w-100">
+            <div class="d-none d-sm-inline-flex w-100">
                 <div class="row row-cols-sm-auto g-3 align-items-center w-100 p-0 m-0">
-                    <div class="mb-3 mr-sm-2 mr-2">
+                    <div class="mb-3 mr-sm-2 mr-2 p-0">
                         <input type="text"  wire:model="name" class="form-control" placeholder="Search By Name"  aria-describedby="basic-addon1">
                     </div>
                     <div class="mb-3 mr-lg-2">
@@ -17,6 +18,24 @@
                             </select>
                     </div>
                     <div class="mb-3">
+                        <input  class="form-control" wire:model="date" type="date">
+                    </div>
+                </div>
+            </div>
+            <div class="d-inline d-sm-none w-100">
+                <div class="row row-cols-sm-auto g-3 align-items-center w-100 p-0 m-0">
+                    <div class="mb-3 mr-sm-2 mr-2 p-0">
+                        <input type="text"  wire:model="name" class="form-control" placeholder="Search By Name"  aria-describedby="basic-addon1">
+                    </div>
+                    <div class="mb-3 mr-lg-2 p-0">
+                            <select wire:model="status" class="form-control" placeholder="Search By Name" >
+                                <option value="" selected>All</option>
+                                <option value="Done">Done</option>
+                                <option value="In progress">In progress</option>
+                                <option value="Failed">Failed</option>
+                            </select>
+                    </div>
+                    <div class="mb-3 p-0">
                         <input  class="form-control" wire:model="date" type="date">
                     </div>
                 </div>
@@ -128,8 +147,11 @@
         <h1>Nothing Found :(</h1>
     </div>
     @endif
-    <div class="pagination justify-content-center">
-        {{ $queues->links() }}
+    <div class="pagination d-flex justify-content-center mt-1">
+        <div class=" overflow-auto">
+            {{ $queues->links() }}
+        </div>
+
     </div>
 
     </div>
