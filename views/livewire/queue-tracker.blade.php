@@ -78,7 +78,7 @@
                 @foreach ($queues as $queue)
                 <div class="list-group-item border rounded mt-2">
                   <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">{{Str::afterLast($queue->name,'\\')}}</h5>
+                    <h5 class="mb-1">{{Illuminate\Support\Str::afterLast($queue->name,'\\')}}</h5>
                     <small><b>{{ sprintf('%02.2f', (float) $queue->processing_time) }} s</b></small>
                   </div>
                   <span class="badge bg-info">Queue : {{ $queue->queue }} | Attempt : {{$queue->attempt}} | Tried : {{$queue->tried}}</span>
