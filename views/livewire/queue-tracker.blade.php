@@ -1,6 +1,4 @@
 <div x-data="{ open: false}">
-    {{-- <div class="mt-5" wire:poll.500ms> --}}
-        <div class="mt-5" >
 
             <div class="d-flex justify-content-center mb-5">
                 <h1>Database Queue Tracker</h1>
