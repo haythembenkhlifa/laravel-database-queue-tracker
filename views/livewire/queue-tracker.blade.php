@@ -1,3 +1,4 @@
+
 <div x-data="{ open: false}">
     {{-- <div class="mt-5" wire:poll.500ms> --}}
         <div class="mt-5">
@@ -147,11 +148,10 @@
         <h1>Nothing Found :(</h1>
     </div>
     @endif
-    <div class="pagination d-flex justify-content-center mt-1">
-        <div class=" overflow-auto">
+    <div class=" d-flex justify-content-center mt-1">
+    <div class="pagination mt-2 overflow-auto" >
             {{ $queues->links() }}
-        </div>
-
+    </div>
     </div>
 
     </div>
@@ -186,4 +186,3 @@ function view(queue) {
     document.getElementById("errorModalBody").innerHTML=queue.exception;
 }
 </script>
-
