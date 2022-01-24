@@ -6,7 +6,7 @@ use haythem\LaravelDatabaseQueueTracker\Models\QueueTracker;
 //     return view('queue-tracker::queue-tracker');
 // });
 
-Route::get('/queue/{id}',function($id){
+Route::get('/queue/{id}', function ($id) {
     $queue = QueueTracker::find($id);
     dd($queue->exception);
     //return view('queue-tracker::queueerror',["queue"=>$queue]);

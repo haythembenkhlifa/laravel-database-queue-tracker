@@ -3,23 +3,34 @@
 namespace haythem\LaravelDatabaseQueueTracker\Services;
 
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
+use Carbon\Exceptions\InvalidCastException;
 use Illuminate\Support\Str;
 use Illuminate\Queue\Events\JobFailed;
 use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Queue\Events\JobExceptionOccurred;
 use haythem\LaravelDatabaseQueueTracker\Models\QueueTracker;
+use InvalidArgumentException;
+use Illuminate\Database\Eloquent\InvalidCastException as EloquentInvalidCastException;
 
 class QueueTrackerService
 {
     public static $model;
 
 
-
+    /**
+     * Handle Processing Job.
+     *
+     * @param JobProcessed $event
+     * @return void
+     */
     public static function handleJobProcessing(JobProcessing $event): void
     {
         self::createQueueTracker($event->job);
     }
+
+
 
     /**
      * Handle Job Processed.
@@ -32,6 +43,8 @@ class QueueTrackerService
         self::markAsDone($event->job);
     }
 
+
+
     /**
      * Handle Job Failing.
      *
@@ -40,8 +53,10 @@ class QueueTrackerService
      */
     public static function handleJobFailed(JobFailed $event): void
     {
-        self::markAsFailed($event->job,$event->exception);
+        self::markAsFailed($event->job, $event->exception);
     }
+
+
 
     /**
      * Handle Job Exception Occurred.
@@ -51,13 +66,30 @@ class QueueTrackerService
      */
     public static function handleJobExceptionOccurred(JobExceptionOccurred $event): void
     {
-        self::markAsFailed($event->job,$event->exception);
+        self::markAsFailed($event->job, $event->exception);
     }
 
-    public static function findQueueTracker($job_uuid){
-        return QueueTracker::where("job_uuid",$job_uuid)->first();
+
+
+    /**
+     * Find Job By Uuid.
+     *
+     * @param string $job_uuid
+     * @return QueueTracker|null
+     */
+    public static function findQueueTracker($job_uuid)
+    {
+        return QueueTracker::where("job_uuid", $job_uuid)->first();
     }
 
+
+
+    /**
+     * Create New Queue Tracker Record.
+     *
+     * @param mixed $job
+     * @return QueueTracker|null
+     */
     public static function createQueueTracker($job)
     {
         if (!$job) return;
@@ -66,8 +98,6 @@ class QueueTrackerService
         $job_failed_before = self::findQueueTracker($job->uuid());
 
         $now = Carbon::now()->format('Y-m-d H:i:s.u');
-
-        logger("now is : $now");
 
         if ($job_failed_before) {
             $job_failed_before->job_id = $job->getJobId();
@@ -92,10 +122,24 @@ class QueueTrackerService
         $queuetracker->is_loading = false;
         $queuetracker->save();
         return $queuetracker;
-
     }
 
-    public static function markAsFailed($job,$exception)
+
+
+
+    /**
+     * Mark Queue Tracker Record As Failed.
+     * 
+     * @param mixed $job 
+     * @param mixed $exception 
+     * 
+     * @return void|QueueTracker 
+     * @throws InvalidFormatException 
+     * @throws InvalidCastException 
+     * @throws InvalidArgumentException 
+     * @throws EloquentInvalidCastException 
+     */
+    public static function markAsFailed($job, $exception)
     {
         if (!$job) return;
 
@@ -122,6 +166,19 @@ class QueueTrackerService
         }
     }
 
+
+
+    /**
+     * Mark Queue Tracker Record As Done.
+     * 
+     * @param mixed $job 
+     * 
+     * @return void|QueueTracker 
+     * @throws InvalidFormatException 
+     * @throws InvalidCastException 
+     * @throws InvalidArgumentException 
+     * @throws EloquentInvalidCastException 
+     */
     public static function markAsDone($job)
     {
         if (!$job) return;
@@ -144,7 +201,4 @@ class QueueTrackerService
             return $job_done;
         }
     }
-
-
-
 }

@@ -4,7 +4,7 @@ namespace haythem\LaravelDatabaseQueueTracker\Tests;
 
 use haythem\LaravelDatabaseQueueTracker\Facades\LaravelDatabaseQueueTracker;
 use haythem\LaravelDatabaseQueueTracker\ServiceProvider;
-use Orchestra\Testbench\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class LaravelDatabaseQueueTrackerTest extends TestCase
 {
@@ -19,8 +19,8 @@ class LaravelDatabaseQueueTrackerTest extends TestCase
             'laravel-database-queue-tracker' => LaravelDatabaseQueueTracker::class,
         ];
     }
-
-    public function testExample()
+    /** @test */
+    public function is_all_okay()
     {
         $this->assertEquals(1, 1);
     }
