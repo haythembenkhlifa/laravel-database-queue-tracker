@@ -5,6 +5,7 @@ namespace haythem\LaravelDatabaseQueueTracker\Services;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidFormatException;
 use Carbon\Exceptions\InvalidCastException;
+use haythem\LaravelDatabaseQueueTracker\Models\FailedJob;
 use Illuminate\Support\Str;
 use Illuminate\Queue\Events\JobFailed;
 use Illuminate\Queue\Events\JobProcessed;
@@ -13,6 +14,7 @@ use Illuminate\Queue\Events\JobExceptionOccurred;
 use haythem\LaravelDatabaseQueueTracker\Models\QueueTracker;
 use InvalidArgumentException;
 use Illuminate\Database\Eloquent\InvalidCastException as EloquentInvalidCastException;
+use Illuminate\Support\Facades\DB;
 
 class QueueTrackerService
 {
@@ -146,13 +148,21 @@ class QueueTrackerService
 
         $job_failed_before = self::findQueueTracker($job->uuid());
 
+
         if ($job_failed_before) {
+
+            $failed_job = FailedJob::where("uuid", $job->uuid())->first();
+            if (optional($failed_job)->id) {
+                $job_failed_before->job_id = optional($failed_job)->id;
+            }
+
 
             $now = Carbon::now();
 
             $job_failed_before->finished_at = $now->format('Y-m-d H:i:s.u');
 
             $startedAt = $job_failed_before->started_at;
+
 
             $job_failed_before->processing_time =  (float) Carbon::parse($startedAt)->diffInSeconds($now) +  Carbon::parse($startedAt)->diff($now)->f;
             $job_failed_before->status = QueueTracker::STATE_FAILED;

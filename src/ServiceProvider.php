@@ -2,6 +2,7 @@
 
 namespace haythem\LaravelDatabaseQueueTracker;
 
+use haythem\LaravelDatabaseQueueTracker\LivewireComponent\QueueTrackerLivewireComponent;
 use Livewire\Livewire;
 use Illuminate\Queue\QueueManager;
 use Illuminate\Queue\Events\JobFailed;
@@ -18,16 +19,16 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     public function boot()
     {
-        Livewire::component('queue-tracker',LivewireComponent\QueueTrackerLivewireComponent::class);
+        Livewire::component('queue-tracker', QueueTrackerLivewireComponent::class);
 
 
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
-        $this->publishes([ self::CONFIG_PATH => config_path('laravel-database-queue-tracker.php'), ], 'config');
+        $this->publishes([self::CONFIG_PATH => config_path('laravel-database-queue-tracker.php'),], 'config');
 
-        $this->loadViewsFrom(__DIR__ .'/../views','queue-tracker');
+        $this->loadViewsFrom(__DIR__ . '/../views', 'queue-tracker');
 
-        $this->loadRoutesFrom(__DIR__.'/../src/routes/web.php');
+
 
         /** @var QueueManager $manager */
         $manager = app(QueueManager::class);
@@ -47,6 +48,9 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $manager->exceptionOccurred(static function (JobExceptionOccurred $event) {
             QueueTrackerService::handleJobExceptionOccurred($event);
         });
+
+
+        $this->loadRoutesFrom(__DIR__ . '/../src/routes/web.php');
     }
 
     public function register()
@@ -61,6 +65,5 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         });
 
         QueueTrackerService::$model = config('laravel-database-queue-tracker.model') ?: ModelsQueueTracker::class;
-
     }
 }
