@@ -12,7 +12,7 @@ class QueueTrackerLivewireComponent extends Component
 {
     use WithPagination;
 
-    protected $paginationTheme = 'bootstrap';
+    protected $paginationTheme = 'tailwind';
 
     public $name;
 
@@ -22,7 +22,7 @@ class QueueTrackerLivewireComponent extends Component
 
     public $status;
 
-    public $slectedQueue;
+    public $selectedQueue;
 
 
     protected $queryString = ['name', 'date', 'status'];
@@ -32,8 +32,13 @@ class QueueTrackerLivewireComponent extends Component
         if (!$this->date) {
             $this->date = Carbon::now()->format('Y-m-d');
         }
-        $queues = ModelsQueueTracker::where("status", 'like', '%' . $this->status . '%')->where("name", 'like', '%' . $this->name . '%')->whereDate('created_at', '=', $this->date)->orderBy("created_at", "desc")->paginate(50);
-        return view('queue-tracker::livewire.queue-tracker', ["queues" => $queues]);
+        $allQueues = collect(ModelsQueueTracker::get());
+        $failed = $allQueues->where("status", ModelsQueueTracker::STATE_FAILED)->count();
+        $done = $allQueues->where("status", ModelsQueueTracker::STATE_DONE)->count();
+        $inprogress = $allQueues->where("status", ModelsQueueTracker::STATE_PROGRESS)->count();
+
+        $queues = ModelsQueueTracker::where("status", 'like', '%' . $this->status . '%')->where("name", 'like', '%' . $this->name . '%')->whereDate('created_at', '=', $this->date)->orderBy("created_at", "desc")->paginate(10);
+        return view('queue-tracker::livewire.queue-tracker', ["queues" => $queues, "done" => $done, "failed" => $failed, "inprogress" => $inprogress,]);
     }
 
     public function retry($id)
@@ -49,10 +54,29 @@ class QueueTrackerLivewireComponent extends Component
             Artisan::call('queue:retry ' . $failed_job->id);
         }
     }
-    public function openModal($id)
+
+    public function updatingName(): void
     {
-        //$this->jobId=$id;
-        logger("Selected Queue tracker Id id : $id");
-        $this->slectedQueue = ModelsQueueTracker::find($id);
+        $this->resetPage();
+    }
+
+    public function updatingStatus(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingDate(): void
+    {
+        $this->resetPage();
+    }
+
+    public function openErrorModal($id)
+    {
+        $this->selectedQueue = ModelsQueueTracker::find($id);
+    }
+
+    public function closeErrorModal()
+    {
+        $this->selectedQueue = null;
     }
 }

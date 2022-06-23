@@ -29,7 +29,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../views', 'queue-tracker');
 
 
-
         /** @var QueueManager $manager */
         $manager = app(QueueManager::class);
 

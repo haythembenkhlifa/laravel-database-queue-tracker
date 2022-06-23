@@ -2,5 +2,6 @@
 
 namespace haythem\LaravelDatabaseQueueTracker;
 
-class LaravelDatabaseQueueTracker{
+class LaravelDatabaseQueueTracker
+{
 }

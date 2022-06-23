@@ -40,11 +40,11 @@ php artisan vendor:publish --provider="haythem\LaravelDatabaseQueueTracker\Servi
     use IsTracked;
 ```
 
-2 - add the this route to the web.php
+2 - create a route to that return the dashboard view.
 
 ```php
 Route::get('/queue-tracker', function () {
-    return view('queue-tracker::queue-tracker');
+    return view('queue-tracker::dashboard');
 });
 ```
 
