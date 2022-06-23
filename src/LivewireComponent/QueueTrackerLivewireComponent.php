@@ -36,8 +36,12 @@ class QueueTrackerLivewireComponent extends Component
         $failed = $allQueues->where("status", ModelsQueueTracker::STATE_FAILED)->count();
         $done = $allQueues->where("status", ModelsQueueTracker::STATE_DONE)->count();
         $inprogress = $allQueues->where("status", ModelsQueueTracker::STATE_PROGRESS)->count();
-
-        $queues = ModelsQueueTracker::where("status", 'like', '%' . $this->status . '%')->where("name", 'like', '%' . $this->name . '%')->whereDate('created_at', '=', $this->date)->orderBy("created_at", "desc")->paginate(10);
+        $perPage = config('laravel-database-queue-tracker.per_page', 2);
+        $queues = ModelsQueueTracker::where("status", 'like', '%' . $this->status . '%')
+            ->where("name", 'like', '%' . $this->name . '%')
+            ->whereDate('created_at', '=', $this->date)
+            ->orderBy("created_at", "desc")
+            ->paginate($perPage);
         return view('queue-tracker::livewire.queue-tracker', ["queues" => $queues, "done" => $done, "failed" => $failed, "inprogress" => $inprogress,]);
     }
 
